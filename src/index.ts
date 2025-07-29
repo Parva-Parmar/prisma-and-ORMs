@@ -2,15 +2,17 @@ import { PrismaClient } from "../node_modules/@prisma/client";
 
 const client = new PrismaClient();
 
-async function createUser(){
-    await client.user.create({
-        data: {
-            username: "parva",
-            password: "parva123",
-            age: 21,
-            city: "Valsad"
+async function getUser(){
+    const user = await client.user.findFirst({
+        where: {
+           id:1
+        },
+        include:{
+            todos: true
         }
     })
+
+    console.log(user);
 }
 
-createUser();
+getUser();
